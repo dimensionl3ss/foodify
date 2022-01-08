@@ -16,6 +16,7 @@ import Register from "./Register";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Favorite from "./Favorite";
 
+const paths = ['/menu', '/menu/:dishId', '/home', '/aboutus', '/favorites', '/contactus', '/singUp'];
 const mapStateToProps = state => {
   return {
     dishes: state.dishes,
@@ -111,7 +112,7 @@ function RequireAuthForSingUp({ children }) {
     // trying to go to when they were redirected. This allows us to send them
     // along to that page after they login, which is a nicer user experience
     // than dropping them off on the home page.
-    return <Navigate to="/" state={{ from: location }} />;
+    return <Navigate to="/home" state={{ from: location }} />;
   }
 
   return children;
@@ -126,7 +127,7 @@ function RequireAuthForFav({ children }) {
     // trying to go to when they were redirected. This allows us to send them
     // along to that page after they login, which is a nicer user experience
     // than dropping them off on the home page.
-    return <Navigate to="/" state={{ from: location }} />;
+    return <Navigate to="/home" state={{ from: location }} />;
   }
 
   return children;
@@ -149,7 +150,8 @@ function RequireAuthForFav({ children }) {
         <Route exact path = "/contactus" element={<Contact resetFeedbackForm = {props.resetFeedbackForm} postFeedback = {props.postFeedback}/>} />
         <Route exact path="/signUp" element={<RequireAuthForSingUp><Register signUpUser={props.signUpUser} /></RequireAuthForSingUp>}/>
         <Route exact path="/favorites"  element={<RequireAuthForFav><Favorite favorites = {props.favorites} deleteFavorite={props.deleteFavorite}></Favorite></RequireAuthForFav>} />
-        <Route exact path="/" element={<HomePage />} />    
+        <Route exact path="/home" element={<HomePage />} />  
+        <Route path = "*" element = {<Navigate replace to="/home" />} /> 
       </Routes>
       </CSSTransition>
       </TransitionGroup>

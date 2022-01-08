@@ -18,7 +18,7 @@ const Register = (props) => {
   return (
     <div className="container col-lg-6 col-sm-12 register"> 
       <Breadcrumb>
-          <BreadcrumbItem><Link className='link-dec' to="/">Home</Link></BreadcrumbItem>
+          <BreadcrumbItem><Link className='link-dec' to="/home">Home</Link></BreadcrumbItem>
           <BreadcrumbItem active>signUp</BreadcrumbItem>
       </Breadcrumb>
       <Form model="user" onSubmit={(values) => handleRegister(values)}>

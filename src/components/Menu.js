@@ -41,7 +41,7 @@ const Menu = (props) => {
       <div className="row">
         <Breadcrumb> 
           <BreadcrumbItem>
-            <Link className="link-dec" to="/">Home</Link>
+            <Link className="link-dec" to="/home">Home</Link>
           </BreadcrumbItem>
           <BreadcrumbItem active>Menu</BreadcrumbItem>
         </Breadcrumb>

@@ -42,11 +42,20 @@ const Header = (props) => {
     <div className="header" style={{ backgroundImage: `url("http://localhost:9000/images/header.jpg")` }}>
       <Navbar light expand="md">
         <NavbarToggler style={{backgroundColor: 'white'}} onClick={toggle} />
-        <NavbarBrand className="mr-auto" href="/">
+        <NavbarBrand className="mr-auto" href="/home">
           F O O D I F Y
         </NavbarBrand>
         <Collapse isOpen={isOpen} navbar>
           <Nav navbar>
+            <NavItem>
+              <NavLink
+                style={{ color: "white" }}
+                className="nav-link"
+                to="/home"
+              >
+                Home
+              </NavLink>
+            </NavItem>
             <NavItem>
               <NavLink
                 style={{ color: "white" }}

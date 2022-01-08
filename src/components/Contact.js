@@ -22,7 +22,7 @@ const Contact = (props) => {
 
         <div className="row">
           <Breadcrumb>
-              <BreadcrumbItem><Link  className = "link-dec" to='/'>Home</Link></BreadcrumbItem>
+              <BreadcrumbItem><Link  className = "link-dec" to='/home'>Home</Link></BreadcrumbItem>
               <BreadcrumbItem active>Contact Us</BreadcrumbItem>
           </Breadcrumb>
         <div className="col-12">

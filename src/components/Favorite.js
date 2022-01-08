@@ -46,7 +46,7 @@ const Favorite = (props) => {
             <div className="container">
                 <div className="row">
                     <Breadcrumb>
-                        <BreadcrumbItem><Link className='link-dec' to='/'>Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem><Link className='link-dec' to='/home'>Home</Link></BreadcrumbItem>
                         <BreadcrumbItem active>My Favorites</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12">
