@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/foodify/static/css/main.d770e256.chunk.css",
+    "main.js": "/foodify/static/js/main.f63c8192.chunk.js",
+    "main.js.map": "/foodify/static/js/main.f63c8192.chunk.js.map",
+    "runtime-main.js": "/foodify/static/js/runtime-main.f09fc5e4.js",
+    "runtime-main.js.map": "/foodify/static/js/runtime-main.f09fc5e4.js.map",
+    "static/css/2.ab2f67dd.chunk.css": "/foodify/static/css/2.ab2f67dd.chunk.css",
+    "static/js/2.70c2ccab.chunk.js": "/foodify/static/js/2.70c2ccab.chunk.js",
+    "static/js/2.70c2ccab.chunk.js.map": "/foodify/static/js/2.70c2ccab.chunk.js.map",
+    "static/js/3.17c7322c.chunk.js": "/foodify/static/js/3.17c7322c.chunk.js",
+    "static/js/3.17c7322c.chunk.js.map": "/foodify/static/js/3.17c7322c.chunk.js.map",
+    "index.html": "/foodify/index.html",
+    "static/css/2.ab2f67dd.chunk.css.map": "/foodify/static/css/2.ab2f67dd.chunk.css.map",
+    "static/css/main.d770e256.chunk.css.map": "/foodify/static/css/main.d770e256.chunk.css.map",
+    "static/js/2.70c2ccab.chunk.js.LICENSE.txt": "/foodify/static/js/2.70c2ccab.chunk.js.LICENSE.txt",
+    "static/media/font-awesome.min.css": "/foodify/static/media/fontawesome-webfont.f691f37e.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f09fc5e4.js",
+    "static/css/2.ab2f67dd.chunk.css",
+    "static/js/2.70c2ccab.chunk.js",
+    "static/css/main.d770e256.chunk.css",
+    "static/js/main.f63c8192.chunk.js"
+  ]
+}
