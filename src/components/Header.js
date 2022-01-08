@@ -20,6 +20,7 @@ import {
 } from "reactstrap";
 
 import { NavLink } from "react-router-dom";
+import { baseUrl } from "../resources/baseURL";
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +45,7 @@ const Header = (props) => {
   };
 
   return (
-    <div className="header" style={{ backgroundImage: `url('/header.jpg')` }}>
+    <div className="header" style={{ backgroundImage: `url("http://localhost:9000/images/header.jpg")` }}>
       <Navbar light expand="md">
         <NavbarToggler style={{backgroundColor: 'white'}} onClick={toggle} />
         <NavbarBrand className="mr-auto" href="/">
