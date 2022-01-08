@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Route, Routes} from "react-router";
-import { useParams, useLocation, Navigate, Outlet } from "react-router-dom";
+import { useParams, useLocation, Navigate} from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
 import Menu from "./Menu"; 
@@ -51,8 +51,6 @@ const Main = (props) => {
     props.fetchComments();
     props.fetchChefs();
     props.fetchFavorites();
-    return () => {
-    }
   }, [])
   const HomePage = () => {
     return (
@@ -76,9 +74,8 @@ const Main = (props) => {
         auth = {props.auth}
         deleteComment = {props.deleteComment}
         favorite={
-
-          props.favorites.favorites.length > 0 ?
-          props.favorites.favorites.some((favorite) => favorite.DishId === parseInt(dishId,10))
+          props.favorites.favorites && props.favorites.favorites.length > 0 ?
+          props.favorites.favorites.filter((favorite) => favorite.DishId === parseInt(dishId,10))
           : null
         }
         postFavorite = {props.postFavorite}
@@ -147,14 +144,12 @@ function RequireAuthForFav({ children }) {
       <CSSTransition key={location.key} classNames="page" timeout={300}>
       <Routes>
         <Route exact path="/menu" element={<Menu dishes={props.dishes} />} />
-        <Route exact path="/" element={<HomePage />} />
-        <Route path="/menu/:dishId" element = {<DishWithID />}/>
+        <Route exact path="/menu/:dishId" element = {<DishWithID />}/>
         <Route exact path="/aboutus" element={<About chefs = {props.chefs}/>} />
         <Route exact path = "/contactus" element={<Contact resetFeedbackForm = {props.resetFeedbackForm} postFeedback = {props.postFeedback}/>} />
-        {/* <Route exact path = '/signUp' element={ !props.auth.isAuthenticated ? <Register signUpUser = {props.signUpUser} /> : <Navigate to='/' />} /> */}
-        <Route path="/signUp" element={<RequireAuthForSingUp><Register signUpUser={props.signUpUser} /></RequireAuthForSingUp>}/>
-        <Route path="/favorites"  element={<RequireAuthForFav><Favorite favorites = {props.favorites} deleteFavorite={props.deleteFavorite}></Favorite></RequireAuthForFav>} />
-
+        <Route exact path="/signUp" element={<RequireAuthForSingUp><Register signUpUser={props.signUpUser} /></RequireAuthForSingUp>}/>
+        <Route exact path="/favorites"  element={<RequireAuthForFav><Favorite favorites = {props.favorites} deleteFavorite={props.deleteFavorite}></Favorite></RequireAuthForFav>} />
+        <Route exact path="/" element={<HomePage />} />    
       </Routes>
       </CSSTransition>
       </TransitionGroup>

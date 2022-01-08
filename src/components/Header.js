@@ -14,19 +14,13 @@ import {
   ModalBody,
   FormGroup,
   Form,
-  Row,
-  Col,
-  ModalFooter,
 } from "reactstrap";
 
 import { NavLink } from "react-router-dom";
-import { baseUrl } from "../resources/baseURL";
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isRegOpen, setIsRegOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [isRegModalOpen, setRegModalOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
   const [email, setEmail] = useState(null);

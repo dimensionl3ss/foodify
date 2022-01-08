@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { fadeIn } from "react-animations";
-import { Control, Form, LocalForm } from "react-redux-form";
+import { Control, LocalForm } from "react-redux-form";
 import { Link } from "react-router-dom";
-import { Breadcrumb, BreadcrumbItem, Button, Card, CardBody, CardImg, CardImgOverlay, CardText, CardTitle, Col, Fade, Label, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
+import { Breadcrumb, BreadcrumbItem, Button, Card, CardBody, CardImg, CardImgOverlay, CardText, CardTitle, Col, Fade, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
 import { baseUrl } from "../resources/baseURL";
 import {Stagger, FadeTransform} from 'react-animation-components'
 
@@ -56,7 +55,7 @@ const RenderComments = ({dishId, comments, postComment, auth, handleDelete}) => 
                                     auth.isAuthenticated && auth.user.email === comment.User.email
                                       ?
                                       
-                                      <a type="submit" style={{color: 'red'}} onClick={() => handleDelete(comment)}>
+                                      <a  type="submit" style={{color: 'red'}} onClick={() => handleDelete(comment)}>
                                         <span title="Delete" className="fa fa-trash fa-sm"></span>
                                       </a>
                                       :
