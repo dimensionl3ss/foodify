@@ -1,32 +1,54 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap'
+import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Fade, Media } from 'reactstrap'
+import { baseUrl } from '../resources/baseURL';
+import {Stagger} from 'react-animation-components';
 
 const RenderChef = ({chef}) => {
     return (
-        <Media className = 'col-12 mb-4'>
-            <Media left className ='col-2'>
-                <img src = {chef.image} width="75%"/>
-            </Media>
-            <Media body >
-                <Media heading>{chef.name}</Media>
-                <p>{chef.designation}
-                </p>
-                <p>
-                    {chef.description}
-                </p>
-            </Media>
-        </Media>
+
+        <Card className='image-txt-container'>
+            <div>
+                <Media left style={{width: '50%'}} object src={baseUrl + chef.image} title={chef.firstName + " " + chef.lastName} />
+            </div>
+            <div>
+                <Media heading>{chef.firstName + " " + chef.lastName}</Media>
+                <p>{chef.description}</p>
+                <Link className='link-dec' to={`/menu/${chef.dishId}`}>{chef.Dish.name}</Link><span> is the most favorite in my served dishes.</span>
+            </div>
+        </Card>
     )
 }
+const ChefsList = (props) => {
 
-const About = (props) => {
-
-    const chefs = props.chefs.map((chef) => {
+    const chefs = props.chefs.chefs.map((chef) => {
         return (
-                <RenderChef chef={chef} key={chef.id}/>     
+            <Fade in key={chef.id}>
+                <RenderChef chef={chef}/> 
+            </Fade>
+                    
         );
     });
+
+    if(props.chefs.error) {
+        return(
+            <div style={{textAlign: 'center'}}> 
+                <h4>{props.chefs.error}</h4>
+            </div>
+        );
+    }
+    return (
+        <Media list className="plot-0 mt-2">
+            <Stagger in>
+                {chefs}
+            </Stagger>
+        </Media>
+    );
+    
+}
+const About = (props) => {
+
+    
     return (
         <div className="container">
             <div className="row">
@@ -42,8 +64,8 @@ const About = (props) => {
             <div className="row row-content">
                 <div className="col-12 col-md-6">
                     <h2>Our History</h2>
-                    <p>Started in 2010, FOODIFY quickly established itself as a culinary icon par excellence in Hong Kong. With its unique brand of world fusion cuisine that can be found nowhere else, it enjoys patronage from the A-list clientele in Hong Kong.  Featuring four of the best three-star Michelin chefs in the world, you never know what will arrive on your plate the next time you visit us.</p>
-                    <p>The restaurant traces its humble beginnings to <em>The Frying Pan</em>, a successful chain started by our CEO, Mr. Peter Pan, that featured for the first time the world's best cuisines in a pan.</p>
+                    <p>Started in 2018, FOODIFY quickly established the best indian food restaurant in Kolkata.</p>
+                    {/* <p>The restaurant traces its humble beginnings to <em>The Frying Pan</em>, a successful chain started by our CEO, Mr. Peter Pan, that featured for the first time the world's best cuisines in a pan.</p> */}
                 </div>
                 <div className="col-12 col-md-5">
                     <Card>
@@ -51,13 +73,13 @@ const About = (props) => {
                         <CardBody>
                             <dl className="row p-1">
                                 <dt className="col-6">Started</dt>
-                                <dd className="col-6">1 Jan 2022</dd>
+                                <dd className="col-6">25 Jul 2018</dd>
                                 <dt className="col-6">Major Stake Holder</dt>
                                 <dd className="col-6">Heritage Group of Institutions</dd>
                                 <dt className="col-6">Last Year's Turnover</dt>
                                 <dd className="col-6">$1,250,375</dd>
                                 <dt className="col-6">Employees</dt>
-                                <dd className="col-6">10</dd>
+                                <dd className="col-6">20</dd>
                             </dl>
                         </CardBody>
                     </Card>
@@ -79,12 +101,10 @@ const About = (props) => {
             </div>
             <div className="row row-content">
                 <div className="col-12">
-                    <h2>Corporate chefship</h2>
+                    <h2 style={{textAlign: 'center'}}>Our Chefs at Your Service</h2>
                 </div>
                 <div className="col-12">
-                        <Media list className="plot-0 mt-2">
-                            {chefs}
-                        </Media>
+                    <ChefsList chefs = {props.chefs} />
                 </div>
             </div>
         </div>

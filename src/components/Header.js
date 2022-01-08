@@ -46,7 +46,7 @@ const Header = (props) => {
   return (
     <div className="header" style={{ backgroundImage: `url('/header.jpg')` }}>
       <Navbar light expand="md">
-        <NavbarToggler onClick={toggle} />
+        <NavbarToggler style={{backgroundColor: 'white'}} onClick={toggle} />
         <NavbarBrand className="mr-auto" href="/">
           F O O D I F Y
         </NavbarBrand>
@@ -70,6 +70,17 @@ const Header = (props) => {
                 MENU
               </NavLink>
             </NavItem>
+            {props.auth.isAuthenticated ?
+            <NavItem>
+              <NavLink
+                style={{ color: "white" }}
+                className="nav-link"
+                to="/favorites"
+              >
+                My Favorites
+              </NavLink>
+            </NavItem>
+            : null}
             <NavItem>
               <NavLink
                 style={{ color: "white" }}

@@ -23,7 +23,7 @@ const Footer = () => {
                     India<br />
                     <i className="fa fa-phone"></i>: +91123456789<br />
                     <i className="fa fa-at"></i>: <a className="link-dec "href="mailto:adarsh.raj.cse22@heritageid.edu.in">
-                    foodify@heritageit</a>
+                    Mail us</a>
                     </address>
                 </div>
             </div>

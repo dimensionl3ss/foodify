@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { fadeIn } from "react-animations";
 import { Control, Form, LocalForm } from "react-redux-form";
 import { Link } from "react-router-dom";
-import { Breadcrumb, BreadcrumbItem, Button, Card, CardBody, CardImg, CardText, CardTitle, Col, Fade, Label, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
+import { Breadcrumb, BreadcrumbItem, Button, Card, CardBody, CardImg, CardImgOverlay, CardText, CardTitle, Col, Fade, Label, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
 import { baseUrl } from "../resources/baseURL";
 import {Stagger, FadeTransform} from 'react-animation-components'
 
-const RenderDish = ({ dish }) => {
+const RenderDish = ({ dish , favorite, postFavorite, deleteFavorite, auth}) => {
     return (
       <FadeTransform in
       transformProps={{
@@ -14,6 +14,22 @@ const RenderDish = ({ dish }) => {
       }}>
         <Card>
           <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+          <CardImgOverlay>
+
+            {
+              auth.isAuthenticated ? (favorite 
+              ? 
+              <Button color="danger" onClick={() => deleteFavorite(dish.id)} title="Remove from favorites">
+                  <span className="fa fa-heart fa-lg"></span>
+              </Button>
+              :
+              <Button outline color="danger" onClick={() => postFavorite(dish.id)} title="Add into favorites">
+                  <span className="fa fa-heart fa-lg"></span>
+              </Button>) : null
+
+            }
+              
+          </CardImgOverlay>
           <CardBody>
             <CardTitle >{dish.name}</CardTitle>
             <CardText>{dish.description}</CardText>
@@ -123,7 +139,17 @@ const DishDetail = (props) => {
   const handleDelete = (commentId) => {
     props.deleteComment(commentId);
   }
-  if (props.dish) {
+
+if (props.errMess) {
+    return(
+        <div className="container">
+            <div className="row">
+                <h4>Hello{props.errMess}</h4>
+            </div>
+        </div>
+    );
+}
+if (props.dish) {
 
     return (
       <div className="container">
@@ -141,7 +167,13 @@ const DishDetail = (props) => {
         </div>
         <div className="row">
           <div className="col-12 col-md-5 m-1">
-            <RenderDish dish={props.dish} />
+            <RenderDish 
+              dish={props.dish} 
+              favorite={props.favorite} 
+              postFavorite={props.postFavorite}
+              deleteFavorite = {props.deleteFavorite}
+              auth = {props.auth}
+            />
           </div>
           <div className="col-12 col-md-5 m-1">
             <RenderComments 
@@ -156,7 +188,7 @@ const DishDetail = (props) => {
       </div>
     );
   }
-  return <div></div>;
+else return <div></div>;
 };
 
 export default DishDetail;

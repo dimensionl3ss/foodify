@@ -3,19 +3,15 @@ export const Chefs = (
   state = {
     chefs: [],
     error: null,
-    isLoading: true,
   },
   action
 ) => {
   switch (action.type) {
-    case ActionTypes.CHEFS_LOADING:
-      return { ...state, chefs: [], isLoading: true, error: null };
 
     case ActionTypes.ADD_CHEFS:
       return {
         ...state,
         chefs: action.payload,
-        isLoading: false,
         error: null,
       };
 
@@ -23,7 +19,6 @@ export const Chefs = (
       return {
         ...state,
         chefs: [],
-        isLoading: false,
         error: action.payload,
       };
 

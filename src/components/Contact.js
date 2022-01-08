@@ -1,6 +1,7 @@
 import React from "react";
-import {Button, Label, Row, Col} from 'reactstrap'; 
+import {Button, Label, Row, Col, Breadcrumb, BreadcrumbItem} from 'reactstrap'; 
 import { Control, Form, Errors} from 'react-redux-form';
+import { Link } from "react-router-dom";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -18,6 +19,17 @@ const Contact = (props) => {
     }
   return (
     <div className="container col-lg-6 col-sm-12 feedback">
+
+        <div className="row">
+          <Breadcrumb>
+              <BreadcrumbItem><Link  className = "link-dec" to='/'>Home</Link></BreadcrumbItem>
+              <BreadcrumbItem active>Contact Us</BreadcrumbItem>
+          </Breadcrumb>
+        <div className="col-12">
+            <h3>Contact Us</h3>
+            <hr />
+        </div>
+        </div>
         <h3>Send us your Feedback</h3>
           <Form
             model="feedback"
@@ -85,7 +97,7 @@ const Contact = (props) => {
             <br />
             <Row className="form-group">
               <Label htmlFor="phone" md={2}>
-                Phone
+                Phone(+91)
               </Label>
               <Col>
                 <Control.text

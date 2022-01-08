@@ -1,6 +1,7 @@
 import React from "react";
 import { Control, Errors, Form } from "react-redux-form";
-import { Button, Col, Label, Row } from "reactstrap";
+import { Link } from "react-router-dom";
+import { Breadcrumb, BreadcrumbItem, Button, Col, Label, Row } from "reactstrap";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -16,6 +17,10 @@ const Register = (props) => {
       }
   return (
     <div className="container col-lg-6 col-sm-12 register"> 
+      <Breadcrumb>
+          <BreadcrumbItem><Link className='link-dec' to="/">Home</Link></BreadcrumbItem>
+          <BreadcrumbItem active>signUp</BreadcrumbItem>
+      </Breadcrumb>
       <Form model="user" onSubmit={(values) => handleRegister(values)}>
         <h3>Register Here</h3>
 
@@ -187,8 +192,8 @@ const Register = (props) => {
         </Row>
         <br />
         <Row className="form-group">
-            <Col md={{size: 10}}>
-                <Button type="submit" color="danger">
+            <Col>
+                <Button type="submit" className="block" color="danger" block>
                     Submit
                 </Button>
             </Col>
