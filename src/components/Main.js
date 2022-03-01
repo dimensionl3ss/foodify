@@ -21,7 +21,6 @@ const mapStateToProps = state => {
   return {
     dishes: state.dishes,
     comments: state.comments,
-    promotions: state.promotions,
     chefs: state.chefs,
     auth: state.auth,
     favorites: state.favorites,
@@ -69,15 +68,15 @@ const Main = (props) => {
       <DishDetail
         dish={props.dishes.dishes.filter((dish) => dish.id === parseInt(dishId, 10))[0]}
         errMess={props.dishes.errMess}
-        comments={props.comments.comments.filter((comment) => comment.dishId === parseInt(dishId,10))}
+        comments={props.comments.comments.filter((comment) => comment.DishId === parseInt(dishId,10))}
         commentsErrMess={props.comments.errMess}
         postComment={props.postComment}
         auth = {props.auth}
         deleteComment = {props.deleteComment}
         favorite={
-          props.favorites.favorites && props.favorites.favorites.length > 0 ?
+          props.favorites.favorites ? 
           props.favorites.favorites.filter((favorite) => favorite.DishId === parseInt(dishId,10))
-          : null
+          : []
         }
         postFavorite = {props.postFavorite}
         deleteFavorite = {props.deleteFavorite}
@@ -88,7 +87,7 @@ const Main = (props) => {
       <DishDetail
         dish={props.dishes.dishes.filter((dish) => dish.id === parseInt(dishId, 10))[0]}
         errMess={props.dishes.errMess}
-        comments={props.comments.comments.filter((comment) => comment.dishId === parseInt(dishId,10))}
+        comments={props.comments.comments.filter((comment) => comment.DishId === parseInt(dishId,10))}
         commentsErrMess={props.comments.errMess}
         postComment={props.postComment}
         auth = {props.auth}
@@ -148,7 +147,7 @@ function RequireAuthForFav({ children }) {
         <Route exact path="/menu/:dishId" element = {<DishWithID />}/>
         <Route exact path="/aboutus" element={<About chefs = {props.chefs}/>} />
         <Route exact path = "/contactus" element={<Contact resetFeedbackForm = {props.resetFeedbackForm} postFeedback = {props.postFeedback}/>} />
-        <Route exact path="/signUp" element={<RequireAuthForSingUp><Register signUpUser={props.signUpUser} /></RequireAuthForSingUp>}/>
+        <Route exact path="/signUp" element={<RequireAuthForSingUp><Register signUpUser={props.signUpUser} errMess = {props.auth.errMess}/></RequireAuthForSingUp>}/>
         <Route exact path="/favorites"  element={<RequireAuthForFav><Favorite favorites = {props.favorites} deleteFavorite={props.deleteFavorite}></Favorite></RequireAuthForFav>} />
         <Route exact path="/home" element={<HomePage />} />  
         <Route path = "*" element = {<Navigate replace to="/home" />} /> 

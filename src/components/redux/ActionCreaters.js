@@ -39,7 +39,7 @@ export const deleteComment = (comment) => (dispatch )=> {
 export const postComment = (dishId, rating, comment) => (dispatch) => {
 
     const newComment = {
-        dishId: dishId,
+        DishId: dishId,
         stars: rating,
         comment: comment
     }
@@ -216,12 +216,12 @@ export const loginUser = (creds) => (dispatch) => {
             localStorage.setItem('token', response.token);
             localStorage.setItem('creds', JSON.stringify(creds));
             // Dispatch the success action
-            //dispatch(fetchFavorites());
+            dispatch(fetchFavorites());
             dispatch(receiveLogin(response));
         } 
         else {
             var error = new Error('Error: ' + response.status + ', message: '+ response.err.message);
-            //error.response = response;
+            error.response = response;
             throw error;
         }
     })
@@ -312,18 +312,6 @@ export const signUpUser = (newUser) => (dispatch) => {
         },
         body: JSON.stringify(newUser)
     })
-    .then(response => {
-        if (response.ok) {
-            return response;
-        } else {
-            var error = new Error('Error ' + response.status + ': ' + response.statusText);
-            error.response = response;
-            throw error;
-        }
-        },
-        error => {
-            throw error;
-        })
     .then(response => response.json())
     .then(response => {
         if (response.success) {
@@ -335,12 +323,15 @@ export const signUpUser = (newUser) => (dispatch) => {
             dispatch(loginUser(newUser));
         } 
         else {
-            var error = new Error('Error ' + response.status);
-            error.response = response;
+            var error = new Error(response.status + " " +  response.message);
+            error.response = response.message;
             throw error;
         }
+    }, (err) => {throw err;})
+    .catch(error => {
+        dispatch(signUpError(error.message)); 
+        alert(error.message);
     })
-    .catch(error => dispatch(signUpError(error.message)))
 };
 
 export const postFavorite = (dishId) => (dispatch) => {

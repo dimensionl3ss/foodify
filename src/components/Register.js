@@ -12,7 +12,7 @@ const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val
 const Register = (props) => {
     const handleRegister = (values) => {
         console.log(JSON.stringify(values))
-        alert(JSON.stringify(values));
+        //alert(JSON.stringify(values));
         props.signUpUser(values);
       }
   return (

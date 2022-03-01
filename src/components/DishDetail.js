@@ -5,33 +5,40 @@ import { Breadcrumb, BreadcrumbItem, Button, Card, CardBody, CardImg, CardImgOve
 import { baseUrl } from "../resources/baseURL";
 import {Stagger, FadeTransform} from 'react-animation-components'
 
-const RenderDish = ({ dish , favorite, postFavorite, deleteFavorite, auth}) => {
+const renderDelButton = ({dish, favorite, postFavorite, deleteFavorite, auth}) => {
+
+  if(auth.isAuthenticated) {
+    if(favorite.length > 0) {
+      return (
+        <Button color="danger" onClick={() => deleteFavorite(dish.id)} title="Remove from favorites">
+            <span className="fa fa-heart fa-lg"></span>
+        </Button>
+      );
+    }
+    else {
+      return (
+            <Button outline color="danger" onClick={() => postFavorite(dish.id)} title="Add into favorites">
+                <span className="fa fa-heart fa-lg"></span>
+            </Button>
+      );
+    }
+  }
+  return null;
+}
+const RenderDish = (props) => {
     return (
       <FadeTransform in
       transformProps={{
         exitTransform: 'scale(0.5) translateY(-50%)'
       }}>
         <Card>
-          <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+          <CardImg top src={baseUrl + props.dish.image} alt={props.dish.name} />
           <CardImgOverlay>
-
-            {
-              auth.isAuthenticated ? (favorite 
-              ? 
-              <Button color="danger" onClick={() => deleteFavorite(dish.id)} title="Remove from favorites">
-                  <span className="fa fa-heart fa-lg"></span>
-              </Button>
-              :
-              <Button outline color="danger" onClick={() => postFavorite(dish.id)} title="Add into favorites">
-                  <span className="fa fa-heart fa-lg"></span>
-              </Button>) : null
-
-            }
-              
+              {renderDelButton(props)}
           </CardImgOverlay>
           <CardBody>
-            <CardTitle >{dish.name}</CardTitle>
-            <CardText>{dish.description}</CardText>
+            <CardTitle >{props.dish.name}</CardTitle>
+            <CardText>{props.dish.description}</CardText>
           </CardBody>
         </Card>
       </FadeTransform>
@@ -53,6 +60,7 @@ const RenderComments = ({dishId, comments, postComment, auth, handleDelete}) => 
                                   <p>{comment.comment + " "} <span> {
                                     //console.log(auth.user.email, comment.User.email),
                                     auth.isAuthenticated && auth.user.email === comment.User.email
+
                                       ?
                                       
                                       <a  type="submit" style={{color: 'red'}} onClick={() => handleDelete(comment)}>

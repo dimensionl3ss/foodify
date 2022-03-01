@@ -32,7 +32,7 @@ const Favorite = (props) => {
             </div>
         )
     }
-    else if (props.favorites.favorites.length > 0) {
+    else if (props.favorites.favorites && props.favorites.favorites.length > 0) {
 
         const favorites = props.favorites.favorites.map((favorite) => {
             return (

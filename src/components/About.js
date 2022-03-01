@@ -9,9 +9,9 @@ const RenderChef = ({chef}) => {
 
         <Card className='image-txt-container'>
             <div>
-                <Media left style={{width: '50%'}} object src={baseUrl + chef.image} title={chef.firstName + " " + chef.lastName} />
+                <Media left style={{width: '200px', height: '200px'}} object src={baseUrl + chef.image} title={chef.firstName + " " + chef.lastName} />
             </div>
-            <div>
+            <div style={{padding: '20px'}}>
                 <Media heading>{chef.firstName + " " + chef.lastName}</Media>
                 <p>{chef.description}</p>
                 <Link className='link-dec' to={`/menu/${chef.dishId}`}>{chef.Dish.name}</Link><span> is the most favorite in my served dishes.</span>
@@ -64,8 +64,8 @@ const About = (props) => {
             <div className="row row-content">
                 <div className="col-12 col-md-6">
                     <h2>Our History</h2>
-                    <p>Started in 2018, FOODIFY quickly established the best indian food restaurant in Kolkata.</p>
-                    {/* <p>The restaurant traces its humble beginnings to <em>The Frying Pan</em>, a successful chain started by our CEO, Mr. Peter Pan, that featured for the first time the world's best cuisines in a pan.</p> */}
+                    <h5>Started in 2018, FOODIFY quickly established the best indian food restaurant in Kolkata. With its unique brand of world cuisine that can be found nowhere else, it enjoys patronage from many in Kolkata.  Featuring four of the best Michelin chefs in the world, you never know what will arrive on your plate the next time you visit us.</h5>
+                    <h5>The restaurant starts its humble beginnings with serving the best <em>Biryani</em> in Kolkata.</h5>
                 </div>
                 <div className="col-12 col-md-5">
                     <Card>
