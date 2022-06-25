@@ -5,7 +5,7 @@ import { Comments } from './comments';
 import { Chefs } from './chefs';
 import { Auth } from './auth';
 import { favorites } from './favorites';
-import { InitialFeedback, IntitialRegForm } from './form';
+import { InitialDishForm, InitialFeedback, IntitialRegForm } from './form';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
@@ -19,7 +19,8 @@ export const ConfigureStore = () => {
             favorites,
             ...createForms({
                 feedback: InitialFeedback,
-                user: IntitialRegForm
+                user: IntitialRegForm,
+                dish: InitialDishForm,
             })
         }),
         applyMiddleware(thunk, logger)

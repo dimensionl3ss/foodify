@@ -9,13 +9,15 @@ import DishDetail from "./DishDetail";
 import About from "./About";
 import { connect } from "react-redux";
 import Contact from "./Contact";
-
-import {deleteComment, deleteFavorite, fetchChefs, fetchComments, fetchDishes, fetchFavorites, loginUser, logoutUser, postComment, postFavorite, postFeedback, signUpUser} from '../components/redux/ActionCreaters';
+import {addAdminDish, deleteComment, deleteFavorite, fetchChefs, fetchComments, fetchDishes, fetchFavorites, loginUser, logoutUser, postComment, postFavorite, postFeedback, updateAdminDish, signUpUser, deleteAdminDish, deleteAdminUser} from '../components/redux/ActionCreaters';
 import { actions } from "react-redux-form";
 import Register from "./Register";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Favorite from "./Favorite";
-
+import AddDish from "./AddDish";
+import { baseUrl } from "../resources/baseURL";
+import UpdateDish from "./UpdateDish";
+import UpdateUser from "./UpdateUser";
 const paths = ['/menu', '/menu/:dishId', '/home', '/aboutus', '/favorites', '/contactus', '/singUp'];
 const mapStateToProps = state => {
   return {
@@ -40,7 +42,11 @@ const mapDispatchToProps = (dispatch) => ({
   signUpUser: (newUser) => dispatch(signUpUser(newUser)),
   fetchFavorites: () => dispatch(fetchFavorites()),
   postFavorite: (dishId) => dispatch(postFavorite(dishId)),
-  deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId))
+  deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId)),
+  postAdminDish: (file) => dispatch(addAdminDish(file)),
+  updateAdminDish: (dishWithId) => dispatch(updateAdminDish(dishWithId)),
+  deleteAdminDish: (dishId) => dispatch(deleteAdminDish(dishId)),
+  deleteAdminUser: (email) => dispatch(deleteAdminUser(email))
 });
 
 const Main = (props) => {
@@ -54,10 +60,14 @@ const Main = (props) => {
   }, [])
   const HomePage = () => {
     return (
+      props.auth.isAuthenticated ?
       <Home
         dishes={props.dishes.dishes.filter((dish) => dish.promotion)}
         errMess={props.dishes.errMess}
       />
+      : <div >
+        <img  style={{position: 'relative', width: '100%', marginTop: '-16px'}} src= {baseUrl + 'images/abc1.jpg'} srcset="" />
+      </div>
     );
   };
   const DishWithID = () => {
@@ -151,6 +161,9 @@ function RequireAuthForFav({ children }) {
         <Route exact path="/favorites"  element={<RequireAuthForFav><Favorite favorites = {props.favorites} deleteFavorite={props.deleteFavorite}></Favorite></RequireAuthForFav>} />
         <Route exact path="/home" element={<HomePage />} />  
         <Route path = "*" element = {<Navigate replace to="/home" />} /> 
+        <Route exact path = "/add-dish" element={<RequireAuthForFav><AddDish postAdminDish = {props.postAdminDish}/></RequireAuthForFav>} />
+        <Route exact path = "/update-dish" element={<RequireAuthForFav><UpdateDish updateAdminDish = {props.updateAdminDish} deleteAdminDish = {props.deleteAdminDish}/></RequireAuthForFav>} />
+        <Route exact path = "/update-user" element={<RequireAuthForFav><UpdateUser deleteAdminUser = {props.deleteAdminUser}/></RequireAuthForFav>} />
       </Routes>
       </CSSTransition>
       </TransitionGroup>

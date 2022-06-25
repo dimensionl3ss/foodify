@@ -16,3 +16,11 @@ export const IntitialRegForm = {
     phone: '',
     pin: '',
 }
+
+export const InitialDishForm = {
+    name: '',
+    description: '',
+    price: '',
+    featured: '',
+    promotion: '',
+};

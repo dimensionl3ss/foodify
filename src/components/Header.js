@@ -14,14 +14,20 @@ import {
   ModalBody,
   FormGroup,
   Form,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from "reactstrap";
 
 import { NavLink } from "react-router-dom";
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -93,6 +99,18 @@ const Header = (props) => {
               >
                 Contact Us
               </NavLink>
+            </NavItem>
+            <NavItem>
+              { props.auth.isAuthenticated && props.auth.user.email === 'admin@gmail.com' ? <Dropdown isOpen={isDropdownOpen} toggle={toggleDropdown}>
+                <DropdownToggle className="nav-link" caret style={{border: 'none', background: 'none', outline : 'none', color: 'white'}}>Admin Activities 
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem><NavLink className = "nav-link" to="/add-dish">Add dish</NavLink></DropdownItem>
+                  <DropdownItem><NavLink className = "nav-link" to="/update-dish">Update dish</NavLink></DropdownItem>
+                  <DropdownItem><NavLink className = "nav-link" to="/update-user">Update user</NavLink></DropdownItem>
+                </DropdownMenu>
+              </Dropdown> : ""
+              }
             </NavItem>
           </Nav>
         </Collapse>

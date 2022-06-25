@@ -278,6 +278,57 @@ export const postFeedback = (feedback) => (dispatch) => {
     .catch(error =>  { console.log('Feedback', error.message); alert('Your feedback could not be posted\nError: '+error.message); });
 };
 
+export const addAdminDish = (file) => (dispatch) => {
+
+    const formData = new FormData();
+    formData.append('imageFile', file.image);
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    return fetch(baseUrl + 'imageUpload', {
+        method: 'POST',
+        headers: {
+            
+            'Authorization': bearer
+        },
+        body: formData,
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        if(response.ok) {
+            return response;
+        }
+        throw new Error(response.status + " " + response.statusText);
+    })
+    .then(response => response.json())
+    .then(response => {
+        //console.log(typeof file.dish);
+        let dish = JSON.parse(file.dish);
+        dish.image = 'images/' + response.filename;
+        dish.featured = '1';
+        dish = JSON.stringify(dish);
+        console.log(dish);
+        return fetch(baseUrl + 'dishes', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': bearer
+            },
+            body: dish,
+            credentials: 'same-origin'
+            
+        })
+        .then((response) => {
+            if(response.ok) {
+                return response;
+            }
+            throw new Error(response.status + " " + response.statusText);
+        })
+        .then(response => response.json())
+        .then((response) => {dispatch(fetchDishes()); alert('New dish added successfully!')})
+        .catch((err) => alert(err));
+    })
+    .catch(err => {alert(err)});
+
+}
 
 export const requestSignUp = (newUser) => {
     return {
@@ -418,6 +469,95 @@ export const fetchFavorites = () => (dispatch) => {
     .then(response => response.json())
     .then(favorites => dispatch(addFavorites(favorites)))
     .catch(error => dispatch(favoritesFailed(error.message)));
+}
+
+export const updateAdminDish = ({dishId, dish}) => (dispatch) => {
+    console.log(dish);
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + `dishes/${dishId}`, {
+        method: "PUT",
+        body: JSON.stringify(dish),
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': bearer
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+    })
+    .then(response => response.json())
+    .then((response) => {dispatch(fetchDishes); alert(response.message)})
+    .catch((err) => {alert(err)});
+
+}
+
+export const deleteAdminDish = (dishId) => (dispatch) => {
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + `dishes/${dishId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': bearer
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+    })
+    .then(response => response.json())
+    .then((response) => {dispatch(fetchDishes); alert(response.status)})
+    .catch((err) => {alert(err)});
+
+}
+
+export const deleteAdminUser = (email) => (dispatch) => {
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + `users/${email}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': bearer
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+    })
+    .then(response => response.json())
+    .then((response) => {alert(response.status)})
+    .catch((err) => {alert(err)});
+
 }
 
 export const favoritesFailed = (errmess) => ({

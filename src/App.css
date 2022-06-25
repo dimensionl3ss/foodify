@@ -178,7 +178,7 @@ fieldset, label { margin: 0; padding: 0; }
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
 
 
-.feedback, .register {
+.feedback, .register, .add-dish, .update-dish {
   border: solid rgb(253, 255, 254);
   padding: 15px;
   border-radius: 1rem;
